@@ -28,14 +28,13 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
+  clip-path: polygon(50% 50%, 100% 0, 0% 0);
   transform-origin: 50% 100%;
   transform: rotate(var(--deg)) skewY(-45deg);
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--segment-color, #800000); /* Dark red section color */
-  height: 100%; /* Ensure each section takes up the full height */
 }
 
 .section img {
