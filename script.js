@@ -19,19 +19,19 @@ function startWheel() {
 }
 
 function getPrize(angle) {
-  if (angle >= 0 && angle < 15) {
+  if (angle >= 0 && angle < 45) {
     return 'MAJOR VICTORY';
-  } else if (angle >= 15 && angle < 30) {
+  } else if (angle >= 45 && angle < 90) {
     return 'DEATH';
-  } else if (angle >= 30 && angle < 45) {
+  } else if (angle >= 90 && angle < 135) {
     return 'WISDOM IS POWER';
-  } else if (angle >= 45 && angle < 60) {
+  } else if (angle >= 135 && angle < 180) {
     return 'MINOR VICTORY';
-  } else if (angle >= 60 && angle < 75) {
+  } else if (angle >= 180 && angle < 225) {
     return 'STANCE REVEAL';
-  } else if (angle >= 75 && angle < 90) {
+  } else if (angle >= 225 && angle < 270) {
     return 'ARTIFACT KNOWLEDGE';
-  } else if (angle >= 90 && angle < 105) {
+  } else if (angle >= 270 && angle < 315) {
     return 'SUMMON REFUND';
   } else {
     // Add conditions for other prizes
