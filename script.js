@@ -1,58 +1,68 @@
-function startWheel() {
-    // Disable the button during wheel spinning to prevent multiple spins
-    document.querySelector('button').disabled = true;
-  
-    // Generate a random angle for spinning (you may customize this logic)
-    const randomAngle = Math.floor(Math.random() * 360) + 360 * 5; // Spin 5 times
-  
-    // Apply the rotation animation to the wheel
-    const wheel = document.getElementById('wheel');
-    wheel.style.transition = 'transform 4s ease-out'; // Adjust the duration as needed
-    wheel.style.transform = `rotate(${randomAngle}deg)`;
-  
-    // Wait for the animation to finish and then display the prize
-    setTimeout(() => {
-      displayPrize(getPrize(randomAngle % 360));
-      
-      // Re-enable the button after the animation
-      document.querySelector('button').disabled = false;
-  
-      // Reset the wheel rotation
-      wheel.style.transition = 'none';
-      wheel.style.transform = 'rotate(0deg)';
-    }, 4000); // Adjust the timeout based on your animation duration
-  }
-  
-  // Function to determine the prize based on the wheel angle
-  function getPrize(angle) {
-    // Add your logic to determine the prize based on the angle
-    // You may use if statements, switch cases, or other methods
-    if (angle >= 0 && angle < 60) {
-      return 'Major Jackpot';
-    } else if (angle >= 60 && angle < 120) {
-      return 'Wisdom Bonus';
-    } else if (angle >= 120 && angle < 180) {
-      return 'Artifact Reveal';
-    } else if (angle >= 180 && angle < 240) {
-      return 'Minor Jackpot 1';
-    } else if (angle >= 240 && angle < 300) {
-      return 'Minor Jackpot 2';
-    } else {
-      return 'Lose';
-    }
-  }
-  
-  // Function to display the prize alert
-  function displayPrize(prize) {
-    const alertDiv = document.createElement('div');
-    alertDiv.classList.add('prize-alert');
-    alertDiv.textContent = `Congratulations! You won: ${prize}`;
-  
-    document.body.appendChild(alertDiv);
-  
-    // Remove the alert after a few seconds (adjust as needed)
-    setTimeout(() => {
-      alertDiv.remove();
-    }, 5000);
-  }
-  
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #111; /* Dark background color */
+  color: #fff; /* Text color */
+  font-family: 'Cinzel', serif; /* Custom font */
+}
+
+.wheel-container {
+  text-align: center;
+}
+
+.wheel {
+  width: 300px;
+  height: 300px;
+  border: 2px solid #800000; /* Dark red border color */
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 20px;
+  background-color: #000; /* Black background color */
+}
+
+.section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 100% 100%, 0% 100%);
+  transform-origin: 50% 100%;
+  transform: rotate(var(--deg)) skewY(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--segment-color, #800000); /* Dark red section color */
+}
+
+.section img {
+  max-width: 80%; /* Adjust the maximum width of the images */
+  max-height: 80%; /* Adjust the maximum height of the images */
+  border-radius: 50%; /* Optional: Add a border-radius for circular images */
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #800000; /* Dark red button color */
+  color: #fff; /* White button text color */
+  border: none;
+  border-radius: 5px;
+}
+
+.prize-alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  background-color: #800000; /* Dark red alert background color */
+  color: #fff; /* White alert text color */
+  border-radius: 5px;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out; /* Adjust the duration as needed */
+  font-family: 'Cinzel', serif; /* Custom font */
+}
