@@ -1,85 +1,65 @@
-function startWheel() {
-  document.querySelector('button').disabled = true;
+var colors = ["#eaeaea", "#cccccc", "#eaeaea", "#cccccc", "#eaeaea", "#cccccc", "#eaeaea", "#cccccc"];
+var prize_descriptions = ["MAJOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "STANCE REVEAL", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "ARTIFACT KNOWLEDGE", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "SUMMON REFUND", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH"];
 
-  const randomAngle = Math.floor(Math.random() * 360) + 360 * 5;
+var startAngle = 0;
+var arc = Math.PI / 4;
+var spinTimeout = null;
+var spinArcStart = 10;
+var spinTime = 0;
+var spinTimeTotal = 0;
+var current_user_status = null;
+var spin_results = null;
+var ctx;
 
-  const wheel = document.getElementById('wheel');
-  wheel.style.transition = 'transform 4s ease-out';
-  wheel.style.transform = `rotate(${randomAngle}deg)`;
+function drawSpinnerWheel() {
+  var canvas = document.getElementById("canvas");
+  if (canvas.getContext) {
+    var outsideRadius = 200;
+    var textRadius = 160;
+    var insideRadius = 125;
 
-  setTimeout(() => {
-    const prize = getPrize(randomAngle % 360);
-    displayPrize(prize);
-    
-    document.querySelector('button').disabled = false;
+    ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, 500, 500);
 
-    wheel.style.transition = 'none';
-    wheel.style.transform = 'rotate(0deg)';
-  }, 4000);
-}
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 2;
 
-function getPrize(angle) {
-  if (angle >= 0 && angle < 15) {
-    return 'MAJOR VICTORY';
-  } else if (angle >= 15 && angle < 30) {
-    return 'DEATH';
-  } else if (angle >= 30 && angle < 45) {
-    return 'DEATH';
-  } else if (angle >= 45 && angle < 60) {
-    return 'DEATH';
-  } else if (angle >= 60 && angle < 75) {
-    return 'DEATH';
-  } else if (angle >= 75 && angle < 90) {
-    return 'DEATH';
-  } else if (angle >= 90 && angle < 105) {
-    return 'DEATH';
-  } else if (angle >= 105 && angle < 120) {
-    return 'DEATH';
-  } else if (angle >= 120 && angle < 135) {
-    return 'DEATH';
-  } else if (angle >= 135 && angle < 150) {
-    return 'DEATH';
-  } else if (angle >= 150 && angle < 165) {
-    return 'DEATH';
-  } else if (angle >= 165 && angle < 180) {
-    return 'DEATH';
-  } else if (angle >= 180 && angle < 195) {
-    return 'DEATH';
-  } else if (angle >= 195 && angle < 210) {
-    return 'WISDOM IS POWER';
-  } else if (angle >= 210 && angle < 225) {
-    return 'DEATH';
-  } else if (angle >= 225 && angle < 240) {
-    return 'DEATH';
-  } else if (angle >= 240 && angle < 255) {
-    return 'DEATH';
-  } else if (angle >= 255 && angle < 270) {
-    return 'DEATH';
-  } else if (angle >= 270 && angle < 285) {
-    return 'DEATH';
-  } else if (angle >= 285 && angle < 300) {
-    return 'DEATH';
-  } else if (angle >= 300 && angle < 315) {
-    return 'DEATH';
-  } else if (angle >= 315 && angle < 330) {
-    return 'DEATH';
-  } else if (angle >= 330 && angle < 345) {
-    return 'DEATH';
-  } else if (angle >= 345 && angle < 360) {
-    return 'DEATH';
-  } else {
-    return 'UNKNOWN';
+    ctx.font = 'bold 12px Helvetica, Arial';
+
+    for (var i = 0; i < 8; i++) {
+      var angle = startAngle + i * arc;
+      ctx.fillStyle = colors[i];
+
+      ctx.beginPath();
+      ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+      ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.save();
+      ctx.shadowOffsetX = -1;
+      ctx.shadowOffsetY = -1;
+      ctx.shadowBlur = 0;
+      ctx.shadowColor = "rgb(220,220,220)";
+      ctx.fillStyle = "black";
+      ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
+        250 + Math.sin(angle + arc / 2) * textRadius);
+      ctx.rotate(angle + arc / 2 + Math.PI / 2);
+      var text = prize_descriptions[i];
+      if (text == undefined) text = "Not this time! " + i;
+      ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
+      ctx.restore();
+    }
+
+    // Arrow
+    ctx.fillStyle = "black";
+    ctx.beginPath();
+    ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
+    ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
+    ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
+    ctx.fill();
   }
 }
 
-function displayPrize(prize) {
-  const alertDiv = document.createElement('div');
-  alertDiv.classList.add('prize-alert');
-  alertDiv.textContent = `Congratulations! You won: ${prize}`;
-
-  document.body.appendChild(alertDiv);
-
-  setTimeout(() => {
-    alertDiv.remove();
-  }, 5000);
-}
+// Call the drawSpinnerWheel function when the page loads
+window.onload = drawSpinnerWheel;
