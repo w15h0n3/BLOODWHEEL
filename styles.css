@@ -9,7 +9,25 @@ body {
   font-family: 'Helvetica', 'Arial', sans-serif; /* Custom font */
 }
 
+.wheel-container {
+  position: relative;
+}
+
 canvas {
   border: 2px solid #800000; /* Dark red border color */
   border-radius: 8px; /* Border radius for the canvas */
+}
+
+button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #800000; /* Dark red button color */
+  color: #fff; /* Button text color */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
