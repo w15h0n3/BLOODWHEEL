@@ -1,57 +1,58 @@
-let wheelSpinning = false;
-
 function startWheel() {
-  // Enable spinning only if the wheel is not already spinning
-  if (!wheelSpinning) {
-    spinWheel();
-  }
-}
-
-function spinWheel() {
-  const wheel = document.getElementById('wheel');
+    // Disable the button during wheel spinning to prevent multiple spins
+    document.querySelector('button').disabled = true;
   
-  // Generate a random number of rotations (e.g., between 3 and 5 rotations)
-  const randomRotations = Math.floor(Math.random() * (5 - 3 + 1)) + 3;
+    // Generate a random angle for spinning (you may customize this logic)
+    const randomAngle = Math.floor(Math.random() * 360) + 360 * 5; // Spin 5 times
   
-  // Calculate the total rotation angle for the wheel
-  const totalRotation = randomRotations * 360;
+    // Apply the rotation animation to the wheel
+    const wheel = document.getElementById('wheel');
+    wheel.style.transition = 'transform 4s ease-out'; // Adjust the duration as needed
+    wheel.style.transform = `rotate(${randomAngle}deg)`;
   
-  // Set up the animation
-  wheel.style.transition = 'transform 3s cubic-bezier(0.4, 2.5, 0.35, 1)';
-  wheel.style.transform = `rotate(${totalRotation}deg)`;
-
-  // Disable the spin button during the animation
-  document.querySelector('button').disabled = true;
-  wheelSpinning = true;
-
-  // After the animation completes, re-enable the spin button
-  setTimeout(() => {
-    wheel.style.transition = 'none';
-    document.querySelector('button').disabled = false;
-    wheelSpinning = false;
-    calculatePrize(totalRotation % 360);
-    wheel.style.transform = 'rotate(0deg)'; // Reset the wheel rotation
-  }, 3000);
-}
-
-function calculatePrize(degrees) {
-  // Calculate the prize based on the wheel rotation
-  const prizeSections = ["Prize 1", "Prize 2"]; // Add more prizes as needed
-  const sectionAngle = 360 / prizeSections.length;
-  const index = Math.floor((degrees % 360) / sectionAngle);
-  const prize = prizeSections[index];
-
-  // Display an animated alert for the won prize
-  const prizeAlert = document.createElement('div');
-  prizeAlert.className = 'prize-alert';
-  prizeAlert.textContent = `Congratulations! You won: ${prize}`;
-  document.body.appendChild(prizeAlert);
-
-  // Animate the alert and remove it after a delay
-  setTimeout(() => {
-    prizeAlert.style.opacity = 0;
+    // Wait for the animation to finish and then display the prize
     setTimeout(() => {
-      document.body.removeChild(prizeAlert);
-    }, 500); // Adjust the duration based on your animation
-  }, 3000); // Adjust the duration based on the spin duration
-}
+      displayPrize(getPrize(randomAngle % 360));
+      
+      // Re-enable the button after the animation
+      document.querySelector('button').disabled = false;
+  
+      // Reset the wheel rotation
+      wheel.style.transition = 'none';
+      wheel.style.transform = 'rotate(0deg)';
+    }, 4000); // Adjust the timeout based on your animation duration
+  }
+  
+  // Function to determine the prize based on the wheel angle
+  function getPrize(angle) {
+    // Add your logic to determine the prize based on the angle
+    // You may use if statements, switch cases, or other methods
+    if (angle >= 0 && angle < 60) {
+      return 'Major Jackpot';
+    } else if (angle >= 60 && angle < 120) {
+      return 'Wisdom Bonus';
+    } else if (angle >= 120 && angle < 180) {
+      return 'Artifact Reveal';
+    } else if (angle >= 180 && angle < 240) {
+      return 'Minor Jackpot 1';
+    } else if (angle >= 240 && angle < 300) {
+      return 'Minor Jackpot 2';
+    } else {
+      return 'Lose';
+    }
+  }
+  
+  // Function to display the prize alert
+  function displayPrize(prize) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('prize-alert');
+    alertDiv.textContent = `Congratulations! You won: ${prize}`;
+  
+    document.body.appendChild(alertDiv);
+  
+    // Remove the alert after a few seconds (adjust as needed)
+    setTimeout(() => {
+      alertDiv.remove();
+    }, 5000);
+  }
+  
