@@ -39,6 +39,13 @@ button, #prizeText {
   font-family: 'Another Danger', sans-serif; /* Apply the custom font */
 }
 
+@font-face {
+  font-family: 'Another Danger';
+  src: url('https://raw.githubusercontent.com/w15h0n3/BLOODWHEEL/main/Another_Danger.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 button {
   display: block;
   margin: 20px auto;
