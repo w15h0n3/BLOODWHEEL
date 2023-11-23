@@ -1,34 +1,16 @@
 body {
   font-family: 'Cinzel', serif;
-  background-color: #1a1a1a; /* Dark background color for dark fantasy theme */
-  color: #ffffff; /* White text color */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
 }
 
-.container {
-  text-align: center;
+#startButton {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
 canvas {
   display: block;
   margin: 20px auto;
-  border: 2px solid #ffffff; /* White border for the canvas */
-}
-
-button {
-  background-color: #4d0000; /* Dark red button color */
-  color: #ffffff; /* White text color for the button */
-  font-size: 16px;
-  padding: 10px 20px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-}
-
-button:hover {
-  background-color: #8b0000; /* Darker red color on hover */
+  border: 2px solid #000;
 }
