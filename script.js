@@ -180,7 +180,6 @@ function stopRotateWheel() {
 
   // Display the prize win text
   prizeTextElement.textContent = text;
-  alert(text);
 }
 
 // Define the easing function
