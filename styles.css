@@ -1,7 +1,7 @@
 body {
-  background-color: #1a1a1a;
-  color: #ffffff;
   font-family: 'Cinzel', serif;
+  background-color: #1a1a1a; /* Dark background color for dark fantasy theme */
+  color: #ffffff; /* White text color */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,24 +10,25 @@ body {
 }
 
 .container {
-  position: relative;
+  text-align: center;
 }
 
 canvas {
-  border-radius: 50%;
+  display: block;
+  margin: 20px auto;
+  border: 2px solid #ffffff; /* White border for the canvas */
 }
 
 button {
-  position: absolute;
-  bottom: 20px;
-  padding: 10px 20px;
+  background-color: #4d0000; /* Dark red button color */
+  color: #ffffff; /* White text color for the button */
   font-size: 16px;
-  background-color: #4d4d4d;
-  color: #ffffff;
-  border: none;
+  padding: 10px 20px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #666666;
+  background-color: #8b0000; /* Darker red color on hover */
 }
