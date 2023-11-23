@@ -70,4 +70,27 @@ function drawSpinnerWheel() {
     ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
     ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
     ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-    ctx.lineTo
+    ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
+    ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+    ctx.fill();
+  }
+}
+
+// Define the function to spin the wheel
+function spin() {
+  spinArcStart = Math.random() * 10 + 10;
+  spinTime = 0;
+  spinTimeTotal = Math.random() * 3 + 4 * 1000;
+  rotateWheel();
+}
+
+// Define the function to rotate the wheel
+function rotateWheel() {
+  spinTime += 30;
+  if (spinTime >= spinTimeTotal) {
+    stopRotateWheel();
+    return;
+  }
+  var spinAngle = spinArcStart - easeOut(spinTime, 0, spinArcStart, spinTimeTotal);
+  start
