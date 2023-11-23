@@ -1,33 +1,34 @@
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  margin: 0;
-  background-color: #111; /* Dark background color */
-  color: #fff; /* Text color */
-  font-family: 'Helvetica', 'Arial', sans-serif; /* Custom font */
-}
-
-.wheel-container {
-  position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: 'Cinzel', 'Helvetica', 'Arial', sans-serif;
+    background-color: #1a1a1a; /* Dark background color */
+    color: #ffffff; /* Light text color */
 }
 
 canvas {
-  border: 2px solid #800000; /* Dark red border color */
-  border-radius: 8px; /* Border radius for the canvas */
+    margin-bottom: 20px;
 }
 
 button {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #800000; /* Dark red button color */
-  color: #fff; /* Button text color */
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #8B0000; /* Dark red button background */
+    color: #ffffff; /* Light text color */
+    border: none;
+}
+
+button:hover {
+    background-color: #600000; /* Darker red on hover */
+}
+
+/* Additional styles for the prize segments */
+canvas {
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
