@@ -70,6 +70,4 @@ function drawSpinnerWheel() {
     ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
     ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
     ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
-    ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
-    ctx.lineTo(250 - 4, 250 - (
+    ctx.lineTo
