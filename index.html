@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap">
   <link rel="stylesheet" href="styles.css">
   <title>Spinning Prize Wheel</title>
 </head>
 <body>
-  <canvas id="canvas" width="500" height="500"></canvas>
-  <button onclick="spinWheel()">Start Wheel</button>
+  <div id="container">
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <div id="prizeContainer">
+      <div id="prizeText" style="font-size: 160px;"></div>
+    </div>
+    <button onclick="spinWheel()">Start Wheel</button>
+  </div>
   <script src="script.js"></script>
 </body>
+<img id="arrowImage" src="https://raw.githubusercontent.com/w15h0n3/BLOODWHEEL/main/arrow.png" style="display:none;">
+
 </html>
+  
+

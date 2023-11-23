@@ -1,16 +1,51 @@
+/* Add your dark fantasy horror styles here */
 body {
+  background-color: #000000;
+  color: #ffffff;
   font-family: 'Cinzel', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
 }
 
-#startButton {
-  font-size: 18px;
-  padding: 10px 20px;
-  margin-top: 20px;
-  cursor: pointer;
+#container {
+  position: relative;
 }
 
 canvas {
   display: block;
   margin: 20px auto;
-  border: 2px solid #000;
+  border: none; /* Remove the border */
+}
+
+#prizeContainer {
+  position: absolute;
+  top: 75%; /* Adjust the distance from the bottom of the wheel */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#prizeText {
+  font-family: 'Another Danger', sans-serif;
+  font-size: 54px !important; /* Add !important to override any conflicting styles */
+  color: red;
+  margin-bottom: 20px;
+}
+
+button, #prizeText {
+  font-family: 'Another Danger', sans-serif; /* Apply the custom font */
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #8B0000;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
 }
