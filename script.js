@@ -1,5 +1,17 @@
 var colors = ["#8B0000", "#8B0000", "#8B0000", "#8B0000", "#8B0000", "#8B0000", "#8B0000", "#8B0000"];
-var prize_descriptions = ["MAJOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "STANCE REVEAL", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "ARTIFACT KNOWLEDGE", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "SUMMON REFUND", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH"];
+var prize_descriptions = [
+    "MAJOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "DEATH", "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "WISDOM IS POWER", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "STANCE REVEAL", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "DEATH", "ARTIFACT KNOWLEDGE", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "SUMMON REFUND", "DEATH", "DEATH", "DEATH", "DEATH",
+    "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "MINOR VICTORY",
+    "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH"
+];
 
 var startAngle = 0;
 var arc = Math.PI / 4;
@@ -27,12 +39,10 @@ function drawSpinnerWheel() {
             var angle = startAngle + i * arc;
 
             if (prize_descriptions[i] === "DEATH") {
-                // If it's a death segment, fill with black and add a white border
                 ctx.fillStyle = "black";
                 ctx.strokeStyle = "white";
             } else {
-                // For other segments, use random colors
-                ctx.fillStyle = getRandomColor();
+                ctx.fillStyle = colors[i];
                 ctx.strokeStyle = "black";
             }
 
@@ -57,32 +67,8 @@ function drawSpinnerWheel() {
             ctx.restore();
         }
 
-        //Arrow
+        // Arrow
         ctx.fillStyle = "black";
         ctx.beginPath();
         ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
-        ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-        ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
-        ctx.fill();
-    }
-}
-
-function getRandomColor() {
-    // Generate a random color in hex format
-    return '#' + Math.floor(Math.random()*16777215).toString(16);
-}
-
-function spin() {
-    spinAngleStart = Math.random() * 10 + 10;
-    spinTime = 0;
-    spinTimeTotal = Math.random() * 3 + 4 * 1000;
-    rotateWheel();
-}
-
-function rotateWheel() {
-    spinTime += 30;
-    if (spinTime >= spinTimeTotal) {
-        stopRotateWheel();
-        return;
-    }
-    var spinAngle = spinAngleStart - easeOut
+        ctx.lineTo(250 + 
