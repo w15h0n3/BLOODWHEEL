@@ -53,4 +53,57 @@ document.addEventListener('DOMContentLoaded', function () {
       ctx.beginPath();
       ctx.moveTo(250 - 4, 250 - (outsideRadius + 5));
       ctx.lineTo(250 + 4, 250 - (outsideRadius + 5));
-      ctx.lineTo(250 + 4
+      ctx.lineTo(250 + 4, 250 - (outsideRadius - 5));
+      ctx.lineTo(250 + 9, 250 - (outsideRadius - 5));
+      ctx.lineTo(250 + 0, 250 - (outsideRadius - 13));
+      ctx.lineTo(250 - 9, 250 - (outsideRadius - 5));
+      ctx.lineTo(250 - 4, 250 - (outsideRadius - 5));
+      ctx.lineTo(250 - 4, 250 - (outsideRadius + 5));
+      ctx.fill();
+    }
+  }
+
+  function spin() {
+    spinArcStart = Math.random() * 10 + 10;
+    spinTime = 0;
+    spinTimeTotal = Math.random() * 3 + 4 * 1000;
+    rotateWheel();
+  }
+
+  function rotateWheel() {
+    spinTime += 30;
+    if (spinTime >= spinTimeTotal) {
+      stopRotateWheel();
+      return;
+    }
+    var spinAngle = spinArcStart - easeOut(spinTime, 0, spinArcStart, spinTimeTotal);
+    startAngle += (spinAngle * Math.PI / 180);
+    drawSpinnerWheel();
+    spinTimeout = setTimeout(rotateWheel, 30);
+  }
+
+  function stopRotateWheel() {
+    clearTimeout(spinTimeout);
+    var degrees = startAngle * 180 / Math.PI + 90;
+    var arcd = arc * 180 / Math.PI;
+    var index = Math.floor((360 - degrees % 360) / arcd);
+    ctx.save();
+    ctx.font = 'bold 30px Helvetica, Arial';
+    var text = prizeDescriptions[index % prizeDescriptions.length];
+    ctx.fillText(text, 250 - ctx.measureText(text).width / 2, 250 - 50);
+    alert(text);
+  }
+
+  function easeOut(t, b, c, d) {
+    var ts = (t /= d) * t;
+    var tc = ts * t;
+    return b + c * (tc + -3 * ts + 3 * t);
+  }
+
+  // Event listener for the spin button
+  var spinButton = document.getElementById('spinButton');
+  spinButton.addEventListener('click', spin);
+
+  // Draw the initial wheel
+  drawSpinnerWheel();
+});
