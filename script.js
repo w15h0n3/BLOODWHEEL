@@ -22,6 +22,14 @@ var prize_descriptions = [
   "MINOR", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH"
 ];
 
+// Function to shuffle an array using the Fisher-Yates algorithm
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 // Define the variables for the spinning function
 var startAngle = 0;
 var numSegments = 82; // Number of segments
@@ -101,40 +109,31 @@ function drawSpinnerWheel() {
       // Draw the logo in the center
       ctx.drawImage(logo, 250 - logoSize / 2, 250 - logoSize / 2, logoSize, logoSize);
 
-// Draw the arrow
-// Draw the arrow image
-var arrow = new Image();
-arrow.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/arrow.png';
+      // Draw the arrow
+      // Draw the arrow image
+      var arrow = new Image();
+      arrow.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/arrow.png';
 
-arrow.onload = function () {
-  // Adjust the position of the arrow
-  ctx.drawImage(arrow, 250 - 25, 250 - outsideRadius - 40, 40, 70);
-};
-
+      arrow.onload = function () {
+        // Adjust the position of the arrow
+        ctx.drawImage(arrow, 250 - 25, 250 - outsideRadius - 40, 40, 70);
+      };
     };
   }
 }
 
 // Define the function to spin the wheel with varying speeds
 function spinWheel() {
+  // Shuffle the prize_descriptions array to make the outcome more random
+  shuffleArray(prize_descriptions);
+
   // Hide the prize win text
   document.getElementById('prizeText').textContent = '';
 
   spinTime = 0;
 
-  // Set totalRotations for each second
-  var totalRotations;
-  if (spinTime < 1000) {
-    totalRotations = 8; // First second: 4 rotations
-  } else if (spinTime < 2000) {
-    totalRotations = 6; // Second second: 3 rotations
-  } else if (spinTime < 3000) {
-    totalRotations = 4; // Third second: 2 rotations
-  } else {
-    totalRotations = 1; // Fourth second: 1 rotation
-  }
-
-  // Calculate spinTimeTotal for the current spin
+  // Generate a random number of rotations (between 5 and 8)
+  var totalRotations = Math.floor(Math.random() * 4) + 5;
   spinTimeTotal = totalRotations * 360 * 5; // Adjust the multiplier for desired speed
 
   // Reduce the spinTimeTotal for a shorter spin
