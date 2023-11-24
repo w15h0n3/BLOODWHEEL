@@ -102,12 +102,13 @@ function drawSpinnerWheel() {
       ctx.drawImage(logo, 250 - logoSize / 2, 250 - logoSize / 2, logoSize, logoSize);
 
       // Draw the arrow
-      // Draw the arrow image
+// Draw the arrow image
 var arrow = new Image();
 arrow.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/arrow.png';
 
 arrow.onload = function () {
-  ctx.drawImage(arrow, 250 - 15, 250 - outsideRadius - 20, 40, 70);
+  // Adjust the position of the arrow
+  ctx.drawImage(arrow, 250 - 20, 250 - outsideRadius - 40, 40, 70);
 };
 
     };
@@ -184,5 +185,3 @@ function easeOut(t, b, c, d) {
 
 // Draw the initial wheel on page load
 document.addEventListener("DOMContentLoaded", drawSpinnerWheel);
-
-// ... (remaining code)
