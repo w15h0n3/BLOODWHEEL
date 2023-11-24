@@ -101,14 +101,14 @@ function drawSpinnerWheel() {
       // Draw the logo in the center
       ctx.drawImage(logo, 250 - logoSize / 2, 250 - logoSize / 2, logoSize, logoSize);
 
-      // Draw the arrow
+// Draw the arrow
 // Draw the arrow image
 var arrow = new Image();
 arrow.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/arrow.png';
 
 arrow.onload = function () {
   // Adjust the position of the arrow
-  ctx.drawImage(arrow, 250 - 20, 250 - outsideRadius - 40, 40, 70);
+  ctx.drawImage(arrow, 250 - 25, 250 - outsideRadius - 40, 40, 70);
 };
 
     };
