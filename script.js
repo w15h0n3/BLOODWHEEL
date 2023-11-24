@@ -115,7 +115,7 @@ function drawSpinnerWheel() {
   }
 }
 
-// Define the function to spin the wheel with varying speeds
+// Define the function to spin the wheel with gradually reducing speed
 function spinWheel() {
   // Hide the prize win text
   document.getElementById('prizeText').textContent = '';
