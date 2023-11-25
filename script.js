@@ -39,6 +39,9 @@ logo.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/KING%20SNOOCH%20-%20F
 var arrow = new Image();
 arrow.src = 'https://github.com/w15h0n3/BLOODWHEEL/raw/main/arrow.png';
 
+// Add a variable to store the index of the winning segment
+var winningSegmentIndex;
+
 // Function to shuffle an array with a fixed number of "DEATH" prizes
 function shuffleArrayWithFixedDeathCount(array, fixedDeathCount) {
   const nonDeathPrizes = array.filter(prize => prize !== "DEATH");
@@ -51,10 +54,35 @@ function shuffleArrayWithFixedDeathCount(array, fixedDeathCount) {
 function drawSpinnerWheel() {
   ctx.clearRect(0, 0, 500, 500);
 
+  // Add text in the top-left corner
+  ctx.fillStyle = 'red';
+  ctx.font = 'bold 11px Cinzel, serif'; // Use 'Cinzel' font
+
+  // Split the text into two lines
+  var textLines = ["Announced Prize", "is Final"];
+  var lineHeight = 18; // Adjust the line height as needed
+
+  // Draw each line
+  for (var i = 0; i < textLines.length; i++) {
+    ctx.fillText(textLines[i], 80, 30 + i * lineHeight); // Adjust the position as needed
+  }
+
   // Draw the wheel
   for (var i = 0; i < numSegments; i++) {
     var angle = startAngle + i * arc;
     var color;
+
+    // Check if the current segment is the winning segment
+    if (i === winningSegmentIndex) {
+      ctx.globalCompositeOperation = "overlay";
+      ctx.fillStyle = "rgba(255, 223, 0, 0.5)"; // Adjust color and transparency as needed
+      ctx.beginPath();
+      ctx.arc(250, 250, outsideRadius, angle, angle + arc, false);
+      ctx.arc(250, 250, insideRadius, angle + arc, angle, true);
+      ctx.stroke();
+      ctx.fill();
+      ctx.globalCompositeOperation = "source-over"; // Reset composite operation
+    }
 
     if (prize_descriptions[i % prize_descriptions.length] === "DEATH") {
       color = "#444444"; // Dark Grey for "DEATH"
@@ -103,8 +131,8 @@ function drawSpinnerWheel() {
   var logoSize = 350;
   ctx.drawImage(logo, 250 - logoSize / 2, 250 - logoSize / 2, logoSize, logoSize);
 
-  // Draw the arrow image
-  ctx.drawImage(arrow, 250 - 25, 250 - outsideRadius - 40, 40, 70);
+  // Draw the arrow image slightly to the right
+  ctx.drawImage(arrow, 250 - 25 + 5, 250 - outsideRadius - 40, 40, 70);
 }
 
 // Function to spin the wheel with varying speeds
@@ -117,8 +145,8 @@ function spinWheel() {
 
   spinTime = 0;
 
-  // Generate a random number of rotations (between 8 and 14)
-  var totalRotations = Math.floor(Math.random() * 7) + 8;
+  // Generate a random number of rotations (between 10 and 16)
+  var totalRotations = Math.floor(Math.random() * 7) + 10;
   spinTimeTotal = totalRotations * 1000; // Adjust the multiplier for desired speed
 
   // Set up the spinning animation using setInterval
@@ -150,7 +178,7 @@ function animateSpin() {
 function stopRotateWheel() {
   var degrees = startAngle * 180 / Math.PI + 90;
   var arcd = arc * 180 / Math.PI;
-  var index = Math.floor((360 - degrees % 360) / arcd); // Adjusting the index calculation
+  winningSegmentIndex = Math.floor((360 - degrees % 360) / arcd); // Adjusting the index calculation
   ctx.save();
 
   // Style for the prize win text
@@ -160,7 +188,7 @@ function stopRotateWheel() {
   prizeTextElement.style.color = 'red';
 
   // Get the prize description
-  var text = prize_descriptions[index % prize_descriptions.length];
+  var text = prize_descriptions[winningSegmentIndex % prize_descriptions.length];
 
   // Display the prize win text
   prizeTextElement.textContent = text;
