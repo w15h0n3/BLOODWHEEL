@@ -22,15 +22,15 @@ var prize_descriptions = [
   "MINOR", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH", "DEATH"
 ];
 
-// Function to shuffle an array using the Fisher-Yates algorithm
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+// Function to shuffle an array with a fixed number of "DEATH" prizes
+function shuffleArrayWithFixedDeathCount(array, fixedDeathCount) {
+  const nonDeathPrizes = array.filter(prize => prize !== "DEATH");
+  const shuffledNonDeathPrizes = nonDeathPrizes.sort(() => Math.random() - 0.5);
+  const shuffledArray = array.map(prize => (prize === "DEATH" ? "DEATH" : shuffledNonDeathPrizes.pop()));
+  return shuffledArray;
 }
 
-// Define the variables for the spinning function
+// Variables for the spinning function
 var startAngle = 0;
 var numSegments = 82; // Number of segments
 var arc = (2 * Math.PI) / numSegments; // Calculate the arc dynamically
@@ -42,7 +42,7 @@ var spinTime = 0;
 var spinTimeTotal = 0;
 var ctx;
 
-// Define the function to draw the spinner wheel
+// Function to draw the spinner wheel
 function drawSpinnerWheel() {
   var canvas = document.getElementById("canvas");
   if (canvas.getContext) {
@@ -122,10 +122,13 @@ function drawSpinnerWheel() {
   }
 }
 
-// Define the function to spin the wheel with varying speeds
+// Draw the initial wheel on page load
+document.addEventListener("DOMContentLoaded", drawSpinnerWheel);
+
+// Function to spin the wheel with varying speeds
 function spinWheel() {
   // Shuffle the prize_descriptions array to make the outcome more random
-  shuffleArray(prize_descriptions);
+  prize_descriptions = shuffleArrayWithFixedDeathCount(prize_descriptions, 20);
 
   // Hide the prize win text
   document.getElementById('prizeText').textContent = '';
@@ -140,7 +143,7 @@ function spinWheel() {
   rotateWheel();
 }
 
-// Define the function to rotate the wheel
+// Function to rotate the wheel
 function rotateWheel() {
   spinTime += 30;
   if (spinTime >= spinTimeTotal) {
@@ -154,7 +157,7 @@ function rotateWheel() {
   spinTimeout = setTimeout(() => rotateWheel(), 30);
 }
 
-// Define the function to stop the wheel
+// Function to stop the wheel
 function stopRotateWheel() {
   clearTimeout(spinTimeout);
   var degrees = startAngle * 180 / Math.PI + 90;
@@ -175,12 +178,9 @@ function stopRotateWheel() {
   prizeTextElement.textContent = text;
 }
 
-// Define the easing function
+// Easing function
 function easeOut(t, b, c, d) {
   var ts = (t /= d) * t;
   var tc = ts * t;
   return b + c * (tc + -3 * ts + 3 * t);
 }
-
-// Draw the initial wheel on page load
-document.addEventListener("DOMContentLoaded", drawSpinnerWheel);

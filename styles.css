@@ -23,7 +23,7 @@ canvas {
 
 #prizeContainer {
   position: absolute;
-  top: 75%; /* Adjust the distance from the bottom of the wheel */
+  top: 85%; /* Adjust the distance from the bottom of the wheel */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -39,20 +39,16 @@ button, #prizeText {
   font-family: 'Another Danger', sans-serif; /* Apply the custom font */
 }
 
-@font-face {
-  font-family: 'Another Danger';
-  src: url('https://raw.githubusercontent.com/w15h0n3/BLOODWHEEL/main/Another_Danger.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 button {
+  position: fixed;
+  top: 200px; /* Adjust the distance from the top */
+  right: 650px; /* Adjust the distance from the right */
   display: block;
   margin: 20px auto;
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #8B0000;
-  color: #ffffff;
+  background-color: #000000;
+  color: #ff0000;
   border: none;
   cursor: pointer;
 }
