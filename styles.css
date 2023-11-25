@@ -28,6 +28,11 @@ canvas {
   transform: translateX(-50%);
 }
 
+@font-face {
+  font-family: 'Another Danger';
+  src: url('https://raw.githubusercontent.com/w15h0n3/BLOODWHEEL/main/Another_Danger.ttf') format('truetype');
+}
+
 #prizeText {
   font-family: 'Another Danger', sans-serif;
   font-size: 54px !important; /* Add !important to override any conflicting styles */
